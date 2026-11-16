@@ -1,0 +1,144 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>$SB Screener — ShadowBroker token chart, trades and links</title>
+  <meta name="description" content="Live $SB (ShadowBroker) price chart, trades, holders, bonding-curve progress and the official links. Contract 8Uk9f5WfJndkC9VkFRLDwEpHgD2KD8BcFbqh5zuBpump on Solana." />
+  <meta name="theme-color" content="#03060c" />
+  <style>html,body{color:#e8f1ff;background:#03060c;margin:0}</style>
+  <link rel="icon" type="image/png" href="/media/favicon.png" />
+  <link rel="apple-touch-icon" href="/media/apple-touch-icon.png" />
+  <link rel="canonical" href="https://shadowbroker.dev/sb/" />
+  <meta property="og:type" content="website" />
+  <meta property="og:site_name" content="ShadowBroker" />
+  <meta property="og:title" content="$SB Screener — ShadowBroker" />
+  <meta property="og:description" content="Live $SB chart, trades, holders and the official links." />
+  <meta property="og:url" content="https://shadowbroker.dev/sb/" />
+  <meta property="og:image" content="https://shadowbroker.dev/media/og-card.jpg" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:image" content="https://shadowbroker.dev/media/og-card.jpg" />
+  <script type="module" crossorigin src="/assets/sb-DJEXQi9x.js"></script>
+  <link rel="modulepreload" crossorigin href="/assets/modulepreload-polyfill-P2Xu9kJm.js">
+  <link rel="stylesheet" crossorigin href="/assets/sb-COKj71-s.css">
+</head>
+<body>
+  <header class="sx-nav">
+    <a href="/" class="sx-brand" aria-label="ShadowBroker home">
+      <img src="/media/sb-mark-72.webp" alt="" width="34" height="28" />
+      <span>SHADOW<b>BROKER</b></span>
+    </a>
+    <span class="sx-crumb">/ $SB Screener</span>
+    <a class="sx-home" href="/">← Home</a>
+  </header>
+
+  <main class="sx" id="main">
+    <section class="sx-head" aria-label="Token">
+      <div class="sx-id">
+        <img id="sxLogo" src="/media/apple-touch-icon.png" alt="$SB token logo" width="52" height="52" />
+        <div>
+          <h1>ShadowBroker <span class="sx-sym">SB</span><span class="sx-pair">/ SOL</span></h1>
+          <div class="sx-chain"><span class="sx-sol"></span>Solana · <span id="sxDex">pump.fun</span> · <span id="sxAge">—</span></div>
+        </div>
+      </div>
+      <div class="sx-price">
+        <div class="sx-usd" id="sxPrice">$—</div>
+        <div class="sx-sub"><span id="sxNative">— SOL</span><span class="sx-chg" id="sxChg24">—</span><span class="sx-lbl">24h</span></div>
+      </div>
+      <div class="sx-live" aria-live="off"><span class="sx-dot"></span><span id="sxUpdated">connecting…</span></div>
+    </section>
+
+    <div class="sx-grid">
+      <div class="sx-main">
+        <section class="sx-card sx-chart-card" aria-label="Price chart">
+          <div class="sx-tf" role="tablist" aria-label="Chart interval">
+            <button type="button" data-tf="minute:1">1m</button>
+            <button type="button" data-tf="minute:5">5m</button>
+            <button type="button" data-tf="minute:15" class="on">15m</button>
+            <button type="button" data-tf="hour:1">1h</button>
+            <button type="button" data-tf="hour:4">4h</button>
+            <button type="button" data-tf="day:1">1D</button>
+            <span class="sx-tf-note">Price in USD · candles from GeckoTerminal</span>
+          </div>
+          <div class="sx-chart" id="sxChart"><div class="sx-empty" id="sxChartMsg">Loading chart…</div></div>
+        </section>
+
+        <section class="sx-card" aria-label="Recent trades">
+          <div class="sx-card-h"><h2>Recent trades</h2><small>last 24 h</small></div>
+          <div class="sx-table-wrap">
+            <table class="sx-trades">
+              <thead><tr><th>Time</th><th>Type</th><th class="r">USD</th><th class="r">SB</th><th class="r">SOL</th><th class="r">Price</th><th>Wallet</th><th></th></tr></thead>
+              <tbody id="sxTrades"><tr><td colspan="8" class="sx-empty-row">Loading trades…</td></tr></tbody>
+            </table>
+          </div>
+        </section>
+      </div>
+
+      <aside class="sx-side">
+        <section class="sx-card sx-links" aria-label="Official links">
+          <div class="sx-card-h"><h2>Official links</h2><small>verified by the developer</small></div>
+          <a class="sx-buy" href="https://pump.fun/coin/8Uk9f5WfJndkC9VkFRLDwEpHgD2KD8BcFbqh5zuBpump" target="_blank" rel="noopener">Buy on pump.fun <span>→</span></a>
+          <div class="sx-link-grid">
+            <a href="https://shadowbroker.dev" target="_blank" rel="noopener"><i>🌐</i>Website</a>
+            <a href="https://x.com/i/communities/2033233231513014322" target="_blank" rel="noopener"><i>𝕏</i>X Community</a>
+            <a href="https://github.com/BigBodyCobain/Shadowbroker" target="_blank" rel="noopener"><i>⌥</i>GitHub</a>
+            <a href="https://solscan.io/token/8Uk9f5WfJndkC9VkFRLDwEpHgD2KD8BcFbqh5zuBpump" target="_blank" rel="noopener"><i>◎</i>Solscan</a>
+            <a id="sxGtLink" href="https://www.geckoterminal.com/solana/pools/Ee3iKwnaexKR1ghtDhxJhx7Yo34c9rwogKZhyMurVM6s" target="_blank" rel="noopener"><i>▤</i>GeckoTerminal</a>
+            <a href="https://pump.fun/coin/8Uk9f5WfJndkC9VkFRLDwEpHgD2KD8BcFbqh5zuBpump" target="_blank" rel="noopener"><i>◉</i>pump.fun</a>
+          </div>
+          <button class="sx-addr" type="button" data-copy="8Uk9f5WfJndkC9VkFRLDwEpHgD2KD8BcFbqh5zuBpump">
+            <span class="sx-addr-l">Contract</span><span class="sx-addr-v">8Uk9f5WfJndkC9VkFRLDwEpHgD2KD8BcFbqh5zuBpump</span><span class="sx-addr-c">copy</span>
+          </button>
+          <button class="sx-addr" type="button" id="sxPairCopy" data-copy="Ee3iKwnaexKR1ghtDhxJhx7Yo34c9rwogKZhyMurVM6s">
+            <span class="sx-addr-l">Pair</span><span class="sx-addr-v" id="sxPairAddr">Ee3iKwnaexKR1ghtDhxJhx7Yo34c9rwogKZhyMurVM6s</span><span class="sx-addr-c">copy</span>
+          </button>
+        </section>
+
+        <section class="sx-card" aria-label="Market stats">
+          <div class="sx-stats">
+            <div><span>Price USD</span><b id="sxStPrice">—</b></div>
+            <div><span>Price SOL</span><b id="sxStNative">—</b></div>
+            <div><span>Liquidity</span><b id="sxLiq">—</b></div>
+            <div><span>FDV</span><b id="sxFdv">—</b></div>
+            <div><span>Market cap</span><b id="sxMcap">—</b></div>
+            <div><span>Holders</span><b id="sxHolders">—</b></div>
+          </div>
+          <div class="sx-curve" id="sxCurveWrap">
+            <div class="sx-curve-h"><span>Bonding curve</span><b id="sxCurvePct">—</b></div>
+            <div class="sx-curve-bar"><span id="sxCurveBar"></span></div>
+            <small id="sxCurveNote">Progress toward graduating from pump.fun.</small>
+          </div>
+        </section>
+
+        <section class="sx-card" aria-label="Activity by interval">
+          <div class="sx-iv" role="tablist" aria-label="Interval">
+            <button type="button" data-iv="m5"><small>5M</small><b data-chg="m5">—</b></button>
+            <button type="button" data-iv="h1"><small>1H</small><b data-chg="h1">—</b></button>
+            <button type="button" data-iv="h6"><small>6H</small><b data-chg="h6">—</b></button>
+            <button type="button" data-iv="h24" class="on"><small>24H</small><b data-chg="h24">—</b></button>
+          </div>
+          <div class="sx-act">
+            <div><span>Txns</span><b id="sxTxns">—</b></div>
+            <div><span>Volume</span><b id="sxVol">—</b></div>
+            <div><span>Buys / Sells</span><b id="sxBS">—</b></div>
+            <div><span>Buyers / Sellers</span><b id="sxBuyers">—</b></div>
+          </div>
+          <div class="sx-split" aria-hidden="true"><span id="sxSplit"></span></div>
+        </section>
+
+        <section class="sx-card" aria-label="Safety checks">
+          <div class="sx-card-h"><h2>Checks</h2><small>on-chain, via GeckoTerminal</small></div>
+          <ul class="sx-checks">
+            <li id="sxMint"><i></i>Mint authority <b>—</b></li>
+            <li id="sxFreeze"><i></i>Freeze authority <b>—</b></li>
+            <li id="sxTop10"><i></i>Top 10 holders <b>—</b></li>
+          </ul>
+        </section>
+      </aside>
+    </div>
+
+    <p class="sx-fine">Market data: GeckoTerminal public API, refreshed every 30 s. $SB is a community token launched on pump.fun; it carries no rights to the software, revenue or its developers. Memecoins can drop to zero in minutes. Not financial advice.</p>
+  </main>
+  <div class="sx-toast" id="sxToast" role="status" aria-live="polite"></div>
+</body>
+</html>

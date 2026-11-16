@@ -44,8 +44,9 @@
   {"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "Is ShadowBroker free?", "acceptedAnswer": {"@type": "Answer", "text": "Yes. ShadowBroker is open-source software under the AGPL-3.0 licence. You run it yourself with Docker, so there is no subscription and nothing to pay for the software. A few optional data sources (such as Shodan) need your own key from that provider."}}, {"@type": "Question", "name": "Do I need an account?", "acceptedAnswer": {"@type": "Answer", "text": "No. ShadowBroker has no accounts, no product telemetry and no analytics. The dashboard talks only to the backend you host yourself. Live layers do make outbound requests to the public data providers you turn on."}}, {"@type": "Question", "name": "What data does it show?", "acceptedAnswer": {"@type": "Answer", "text": "60+ live public feeds across 40+ map layers: aircraft (ADS-B), ships (AIS), satellites, earthquakes, volcanoes and wildfires (NASA FIRMS), GPS jamming, CCTV cameras, KiwiSDR radio, Meshtastic and APRS mesh radio, trains, power plants and data centres, Telegram OSINT channels, and cyber threat feeds such as CISA KEV."}}, {"@type": "Question", "name": "How do I install it?", "acceptedAnswer": {"@type": "Answer", "text": "You need Git and Docker running (Docker Desktop on macOS and Windows; the backend wants about 4 GB of RAM). Paste the one-line command for your OS from the deploy section: it clones the repo, pulls the pre-built images and opens the dashboard at localhost:3000."}}, {"@type": "Question", "name": "Which API keys do I need?", "acceptedAnswer": {"@type": "Answer", "text": "Most layers work with no keys at all. Two free sign-ups unlock the rest: an aisstream.io key for ships (AIS_API_KEY) and an OpenSky login for global flights (OPENSKY_CLIENT_ID and OPENSKY_CLIENT_SECRET). Shodan is optional and uses your own key."}}, {"@type": "Question", "name": "Is this a surveillance tool?", "acceptedAnswer": {"@type": "Answer", "text": "It does not create new surveillance capabilities. ShadowBroker brings together datasets that are already public, such as aircraft and ship transponder broadcasts, satellite orbits and earthquake sensors, and shows them on one map. The code is fully open source, so anyone can audit what data it accesses and how."}}, {"@type": "Question", "name": "Can I connect an AI agent?", "acceptedAnswer": {"@type": "Answer", "text": "Yes. ShadowBroker has an HMAC-signed agent command channel that works with OpenClaw and any agent that speaks the protocol, including Claude- and GPT-based agents. The agent can search telemetry and news across all layers, run recon lookups, place pins and control the map."}}, {"@type": "Question", "name": "What is $SB?", "acceptedAnswer": {"@type": "Answer", "text": "$SB is the ShadowBroker community token on Solana, launched on pump.fun. The software itself is free and does not require the token."}}]}
   </script>
   <noscript><style>#boot{display:none!important}.reveal{opacity:1!important;transform:none!important}.manifesto-text .w,.globe-poster{opacity:1!important}</style></noscript>
-  <script type="module" crossorigin src="/assets/index-BQonOxFd.js"></script>
-  <link rel="stylesheet" crossorigin href="/assets/index-BGHL22s3.css">
+  <script type="module" crossorigin src="/assets/main-DaIChqBi.js"></script>
+  <link rel="modulepreload" crossorigin href="/assets/modulepreload-polyfill-P2Xu9kJm.js">
+  <link rel="stylesheet" crossorigin href="/assets/main-BGHL22s3.css">
 </head>
 <body>
   <a class="skip-link" href="#main">Skip to content</a>
@@ -191,7 +192,7 @@
     <section class="stats-wrap" aria-label="Live numbers">
       <p class="stats-live"><span class="dot live"></span>LIVE · <span id="statsAge">GitHub + GeckoTerminal</span></p>
       <div class="stats">
-        <div class="stat"><div class="stat-num"><span data-live-stat="stars" data-fmt="int">11,580</span></div><div class="stat-label">GitHub stars</div></div>
+        <div class="stat"><div class="stat-num"><span data-live-stat="stars" data-fmt="int">11,579</span></div><div class="stat-label">GitHub stars</div></div>
         <div class="stat"><div class="stat-num"><span data-live-stat="forks" data-fmt="int">1,849</span></div><div class="stat-label">forks</div></div>
         <div class="stat"><div class="stat-num"><span data-live-stat="contributors" data-fmt="int">34</span></div><div class="stat-label">contributors</div></div>
         <div class="stat"><div class="stat-num"><span data-live-stat="mcap" data-fmt="usd">—</span></div><div class="stat-label">$SB market cap</div></div>
@@ -532,7 +533,7 @@
 
           <div class="tc-ctas">
             <a class="btn btn-buy tc-primary" href="https://pump.fun/coin/8Uk9f5WfJndkC9VkFRLDwEpHgD2KD8BcFbqh5zuBpump" target="_blank" rel="noopener"><span>Buy on pump.fun</span><span class="btn-arrow">→</span></a>
-            <a class="btn btn-ghost" href="https://www.geckoterminal.com/solana/pools/Ee3iKwnaexKR1ghtDhxJhx7Yo34c9rwogKZhyMurVM6s" target="_blank" rel="noopener"><span>GeckoTerminal</span><span class="btn-arrow">↗</span></a>
+            <a class="btn btn-ghost" href="/sb/"><span>Screener</span><span class="btn-arrow">→</span></a>
             <a class="btn btn-ghost" href="https://solscan.io/token/8Uk9f5WfJndkC9VkFRLDwEpHgD2KD8BcFbqh5zuBpump" target="_blank" rel="noopener"><span>Solscan</span><span class="btn-arrow">↗</span></a>
             <a class="btn btn-ghost" href="https://x.com/i/communities/2033233231513014322" target="_blank" rel="noopener"><span>X Community</span><span class="btn-arrow">↗</span></a>
           </div>
@@ -629,7 +630,7 @@
         <a href="https://gitlab.com/bigbodycobain/Shadowbroker" target="_blank" rel="noopener">GitLab</a>
         <a href="https://x.com/BigBodyCobain" target="_blank" rel="noopener">X @BigBodyCobain</a>
         <a href="https://x.com/i/communities/2033233231513014322" target="_blank" rel="noopener">X Community</a>
-        <a href="https://www.geckoterminal.com/solana/pools/Ee3iKwnaexKR1ghtDhxJhx7Yo34c9rwogKZhyMurVM6s" target="_blank" rel="noopener">GeckoTerminal</a>
+        <a href="/sb/">$SB Screener</a>
         <a href="https://solscan.io/token/8Uk9f5WfJndkC9VkFRLDwEpHgD2KD8BcFbqh5zuBpump" target="_blank" rel="noopener">Solscan</a>
         <a href="https://pump.fun/coin/8Uk9f5WfJndkC9VkFRLDwEpHgD2KD8BcFbqh5zuBpump" target="_blank" rel="noopener">pump.fun</a>
       </nav>
