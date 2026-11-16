@@ -1,0 +1,646 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ShadowBroker ($SB) — Every public signal. One map.</title>
+  <meta name="description" content="ShadowBroker is an open-source, self-hosted OSINT platform that fuses 60+ live public feeds (aircraft, ships, satellites, seismic, cyber, radio) onto one dark-ops map. $SB is its community token on Solana." />
+  <meta name="theme-color" content="#03060c" />
+  <style>html,body{color:#e8f1ff;background:#03060c;margin:0}</style>
+  <script>
+    (function () {
+      try {
+        var skip = matchMedia('(max-width: 760px)').matches || matchMedia('(prefers-reduced-motion: reduce)').matches || sessionStorage.getItem('sb-booted');
+        if (skip) document.documentElement.classList.add('no-boot');
+        if (!matchMedia('(prefers-reduced-motion: reduce)').matches && !matchMedia('(max-width: 760px)').matches) document.documentElement.classList.add('js-intro');
+      } catch (e) { document.documentElement.classList.add('no-boot'); }
+    })();
+  </script>
+  <link rel="icon" type="image/png" href="/media/favicon.png" />
+  <link rel="apple-touch-icon" href="/media/apple-touch-icon.png" />
+  <link rel="canonical" href="https://shadowbroker.dev/" />
+  <meta property="og:url" content="https://shadowbroker.dev/" />
+  <meta property="og:type" content="website" />
+  <meta property="og:site_name" content="ShadowBroker" />
+  <meta property="og:title" content="ShadowBroker ($SB) — Every public signal. One map." />
+  <meta property="og:description" content="60+ live intelligence feeds. 40+ map layers. Zero accounts. Open source. $SB on Solana." />
+  <meta property="og:image" content="https://shadowbroker.dev/media/og-card.jpg" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta property="og:image:alt" content="ShadowBroker — Global Threat Intercept, real-time geointelligence" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:site" content="@BigBodyCobain" />
+  <meta name="twitter:creator" content="@BigBodyCobain" />
+  <meta name="twitter:title" content="ShadowBroker ($SB) — Every public signal. One map." />
+  <meta name="twitter:description" content="60+ live intelligence feeds. 40+ map layers. Zero accounts. Open source. $SB on Solana." />
+  <meta name="twitter:image" content="https://shadowbroker.dev/media/og-card.jpg" />
+  <link rel="preload" as="image" href="/media/globe-poster-720.webp" imagesrcset="/media/globe-poster-720.webp 720w, /media/globe-poster.webp 1200w" imagesizes="(max-width: 1100px) 125vw, 1250px" fetchpriority="high" />
+  <link rel="preload" as="font" type="font/woff2" href="/fonts/chakra-petch-latin-700-normal.woff2" crossorigin />
+  <link rel="preload" as="font" type="font/woff2" href="/fonts/inter-latin-wght-normal.woff2" crossorigin />
+  <script type="application/ld+json">
+  {"@context":"https://schema.org","@type":"SoftwareApplication","name":"ShadowBroker","applicationCategory":"SecurityApplication","operatingSystem":"Docker, Kubernetes (Linux, macOS, Windows)","description":"Open-source, self-hosted OSINT platform that fuses 60+ live public intelligence feeds onto one map.","license":"https://www.gnu.org/licenses/agpl-3.0.html","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"},"codeRepository":"https://github.com/BigBodyCobain/Shadowbroker","author":{"@type":"Person","name":"BigBodyCobain","url":"https://github.com/BigBodyCobain"}}
+  </script>
+  <script type="application/ld+json">
+  {"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "Is ShadowBroker free?", "acceptedAnswer": {"@type": "Answer", "text": "Yes. ShadowBroker is open-source software under the AGPL-3.0 licence. You run it yourself with Docker, so there is no subscription and nothing to pay for the software. A few optional data sources (such as Shodan) need your own key from that provider."}}, {"@type": "Question", "name": "Do I need an account?", "acceptedAnswer": {"@type": "Answer", "text": "No. ShadowBroker has no accounts, no product telemetry and no analytics. The dashboard talks only to the backend you host yourself. Live layers do make outbound requests to the public data providers you turn on."}}, {"@type": "Question", "name": "What data does it show?", "acceptedAnswer": {"@type": "Answer", "text": "60+ live public feeds across 40+ map layers: aircraft (ADS-B), ships (AIS), satellites, earthquakes, volcanoes and wildfires (NASA FIRMS), GPS jamming, CCTV cameras, KiwiSDR radio, Meshtastic and APRS mesh radio, trains, power plants and data centres, Telegram OSINT channels, and cyber threat feeds such as CISA KEV."}}, {"@type": "Question", "name": "How do I install it?", "acceptedAnswer": {"@type": "Answer", "text": "You need Git and Docker running (Docker Desktop on macOS and Windows; the backend wants about 4 GB of RAM). Paste the one-line command for your OS from the deploy section: it clones the repo, pulls the pre-built images and opens the dashboard at localhost:3000."}}, {"@type": "Question", "name": "Which API keys do I need?", "acceptedAnswer": {"@type": "Answer", "text": "Most layers work with no keys at all. Two free sign-ups unlock the rest: an aisstream.io key for ships (AIS_API_KEY) and an OpenSky login for global flights (OPENSKY_CLIENT_ID and OPENSKY_CLIENT_SECRET). Shodan is optional and uses your own key."}}, {"@type": "Question", "name": "Is this a surveillance tool?", "acceptedAnswer": {"@type": "Answer", "text": "It does not create new surveillance capabilities. ShadowBroker brings together datasets that are already public, such as aircraft and ship transponder broadcasts, satellite orbits and earthquake sensors, and shows them on one map. The code is fully open source, so anyone can audit what data it accesses and how."}}, {"@type": "Question", "name": "Can I connect an AI agent?", "acceptedAnswer": {"@type": "Answer", "text": "Yes. ShadowBroker has an HMAC-signed agent command channel that works with OpenClaw and any agent that speaks the protocol, including Claude- and GPT-based agents. The agent can search telemetry and news across all layers, run recon lookups, place pins and control the map."}}, {"@type": "Question", "name": "What is $SB?", "acceptedAnswer": {"@type": "Answer", "text": "$SB is the ShadowBroker community token on Solana, launched on pump.fun. The software itself is free and does not require the token."}}]}
+  </script>
+  <noscript><style>#boot{display:none!important}.reveal{opacity:1!important;transform:none!important}.manifesto-text .w,.globe-poster{opacity:1!important}</style></noscript>
+  <script type="module" crossorigin src="/assets/index-BQonOxFd.js"></script>
+  <link rel="stylesheet" crossorigin href="/assets/index-BGHL22s3.css">
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+
+  <!-- ============ BOOT SEQUENCE ============ -->
+  <div id="boot" aria-hidden="true">
+    <div class="boot-inner">
+      <img src="/media/sb-mark.webp" alt="" class="boot-mark" />
+      <pre class="boot-log" id="bootLog"></pre>
+      <div class="boot-bar"><span id="bootBar"></span></div>
+      <button class="boot-skip" id="bootSkip" type="button" tabindex="-1">skip ▸</button>
+    </div>
+  </div>
+
+  <div class="grain" aria-hidden="true"></div>
+  <div class="scanlines" aria-hidden="true"></div>
+  <div id="reticle" aria-hidden="true"><span class="r-ring"></span><span class="r-dot"></span><span class="r-label" id="reticleLabel"></span></div>
+
+  <!-- ============ NAV ============ -->
+  <header class="nav" id="nav">
+    <a href="#top" class="brand" aria-label="ShadowBroker — back to top">
+      <img src="/media/sb-mark-72.webp" alt="" width="34" height="28" />
+      <span class="brand-word">SHADOW<b>BROKER</b></span>
+    </a>
+    <nav class="nav-links" aria-label="Primary">
+      <a href="#capabilities">Layers</a>
+      <a href="#demo">Demo</a>
+      <a href="#agent">AI Agent</a>
+      <a href="#deploy">Deploy</a>
+      <a href="#broker">Broker</a>
+      <a href="#token-data" data-section="#token">$SB</a>
+    </nav>
+    <div class="nav-cta">
+      <a class="nav-price" href="#token-data" aria-label="$SB live market cap — jump to token data">
+        <span class="np-sym">$SB</span><span class="np-lbl">MC</span><span class="np-val" id="navPrice">—</span><span class="np-chg" id="navChg"></span>
+      </a>
+      <a class="gh-pill x-pill" href="https://x.com/BigBodyCobain" target="_blank" rel="noopener" aria-label="@BigBodyCobain on X"><svg viewBox="0 0 24 24" width="15" height="15" aria-hidden="true"><path fill="currentColor" d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg></a>
+      <a class="gh-pill" href="https://github.com/BigBodyCobain/Shadowbroker" target="_blank" rel="noopener" aria-label="ShadowBroker on GitHub">
+        <svg viewBox="0 0 16 16" width="16" height="16" aria-hidden="true"><path fill="currentColor" d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.780-.2-3.640-.89-3.640-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.070-.01 1.930-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/></svg>
+        <span class="gh-stars" data-gh-stars>11.6K</span>
+      </a>
+      <a class="btn btn-buy btn-sm" href="https://pump.fun/coin/8Uk9f5WfJndkC9VkFRLDwEpHgD2KD8BcFbqh5zuBpump" target="_blank" rel="noopener">Buy $SB</a>
+      <button class="nav-burger" id="burger" type="button" aria-label="Open menu" aria-expanded="false" aria-controls="mobileMenu"><span></span><span></span></button>
+    </div>
+  </header>
+  <div class="mobile-menu" id="mobileMenu" role="dialog" aria-modal="true" aria-label="Site menu" inert>
+    <a href="#capabilities">Layers</a>
+    <a href="#demo">Demo</a>
+    <a href="#agent">AI Agent</a>
+    <a href="#deploy">Deploy</a>
+    <a href="#broker">The Broker</a>
+    <a href="#token-data">$SB Token</a>
+    <div class="mm-row">
+      <a href="https://github.com/BigBodyCobain/Shadowbroker" target="_blank" rel="noopener">GitHub ↗</a>
+      <a href="https://x.com/BigBodyCobain" target="_blank" rel="noopener">X ↗</a>
+    </div>
+    <a class="btn btn-buy mm-buy" href="https://pump.fun/coin/8Uk9f5WfJndkC9VkFRLDwEpHgD2KD8BcFbqh5zuBpump" target="_blank" rel="noopener"><span>Buy $SB on pump.fun</span><span class="btn-arrow">→</span></a>
+  </div>
+
+  <main id="main" tabindex="-1">
+    <!-- ============ HERO ============ -->
+    <section class="hero" id="hero" data-reticle>
+      <div class="globe-wrap" aria-hidden="true">
+        <span class="pulse p1"></span><span class="pulse p2"></span><span class="pulse p3"></span><span class="pulse p4"></span>
+        <img class="globe-poster" src="/media/globe-poster-720.webp" srcset="/media/globe-poster-720.webp 720w, /media/globe-poster.webp 1200w" sizes="(max-width: 1100px) 125vw, 1250px" alt="" width="1200" height="1200" fetchpriority="high" />
+        <div id="globe" class="globe"></div>
+      </div>
+      <div class="hero-vignette" aria-hidden="true"></div>
+
+      <div class="hud hud-status" aria-hidden="true">
+        <div class="hud-row"><span class="dot live"></span>UPLINK <b>ESTABLISHED</b></div>
+        <div class="hud-row">ZULU <b id="zulu">--:--:--</b></div>
+        <div class="hud-row">USGS <b id="hudQuakes">— events / 24h</b></div>
+        <div class="hud-row">LAT <b id="hudLat">—</b> &nbsp;LON <b id="hudLon">—</b></div>
+        <div class="hud-sub">pointer → globe coords · drag to rotate</div>
+        <div class="hud-legend-block">
+          <div class="hud-legend"><i class="lg-ring"></i><span id="lgQuake">Quakes M2.5+ · 24h · live USGS</span></div>
+          <div class="hud-legend"><i class="lg-iss"></i><span id="lgIss">ISS position · live</span></div>
+          <div class="hud-legend dimmed"><i class="lg-arc"></i>Arcs · orbits — illustrative</div>
+        </div>
+      </div>
+
+      <div class="hero-content">
+        <p class="eyebrow"><span class="tick"></span> Global Threat Intercept<span class="hide-m"> · Real-time GEOINT</span></p>
+        <h1 class="hero-title">
+          <span class="ht-line" data-scramble>Every public signal.</span>
+          <span class="ht-line ht-accent" data-scramble>One map.</span>
+        </h1>
+        <p class="hero-sub">
+          ShadowBroker fuses <b>60+ live intelligence feeds</b> into a single dark-ops interface — aircraft, ships,
+          satellites, seismic events, CCTV, GPS jamming, radio, and cyber threats. Open source. Self-hosted.
+          <b>No accounts. No product telemetry.</b>
+        </p>
+        <div class="hero-ctas">
+          <a class="btn btn-buy" href="https://pump.fun/coin/8Uk9f5WfJndkC9VkFRLDwEpHgD2KD8BcFbqh5zuBpump" target="_blank" rel="noopener">
+            <span>Buy $SB on pump.fun</span><span class="btn-arrow">→</span>
+          </a>
+          <a class="btn btn-ghost" href="https://github.com/BigBodyCobain/Shadowbroker" target="_blank" rel="noopener">
+            <span>Star on GitHub</span><span class="btn-arrow">★</span>
+          </a>
+        </div>
+        <div class="hero-meta">
+          <button class="ca-chip" type="button" data-copy="8Uk9f5WfJndkC9VkFRLDwEpHgD2KD8BcFbqh5zuBpump" aria-label="Copy $SB contract address 8Uk9f5Wf…5zuBpump">
+            <span class="ca-tag">CA</span>
+            <span class="ca-val">8Uk9f5Wf…5zuBpump</span>
+            <span class="ca-act" data-copy-label>copy</span>
+          </button>
+          <span class="badge"><span class="dot"></span>AGPL-3.0 open source</span>
+          <span class="badge" data-gh-release>latest v0.9.84</span>
+          <a class="badge badge-live" href="#token-data"><span class="dot live"></span>$SB MC <b data-live-mc>—</b></a>
+        </div>
+        <div class="hero-deploy" aria-labelledby="hdTitle">
+          <div class="hd-head">
+            <span class="hd-title" id="hdTitle"><span class="hd-caret">▸</span> Deploy in one command</span>
+            <div class="hd-os" role="tablist" aria-label="Your operating system">
+              <button role="tab" aria-selected="true" data-os="mac">macOS</button>
+              <button role="tab" aria-selected="false" tabindex="-1" data-os="linux">Linux</button>
+              <button role="tab" aria-selected="false" tabindex="-1" data-os="ps">Windows</button>
+              <button role="tab" aria-selected="false" tabindex="-1" data-os="cmd">CMD</button>
+            </div>
+          </div>
+          <div class="hd-line" role="tabpanel" aria-label="Deploy command">
+            <span class="hd-prompt" id="hdPrompt" aria-hidden="true">$</span>
+            <code class="hd-cmd" id="hdCmd" tabindex="0"></code>
+            <button class="hd-copy" id="hdCopy" type="button" aria-label="Copy deploy command">copy</button>
+          </div>
+          <p class="hd-note"><span class="hd-touch">Run this on your computer — ShadowBroker is self-hosted. </span>Needs Git + Docker running (~4 GB RAM) · opens <code>localhost:3000</code> — refresh after a minute if it isn't up yet.<br /><span class="hd-keys">Most layers need no keys. Ships need a free <a href="https://aisstream.io" target="_blank" rel="noopener">aisstream.io</a> key and global flights a free <a href="https://opensky-network.org" target="_blank" rel="noopener">OpenSky</a> login — add them to <code>.env</code>.</span> <a href="#deploy">details ↓</a></p>
+        </div>
+      </div>
+
+      <a href="#marquee" class="scroll-cue" aria-label="Scroll to content"><span></span></a>
+    </section>
+
+
+    <!-- ============ MARQUEE ============ -->
+    <div class="marquee" id="marquee">
+      <div class="marquee-track">
+        <span>ADS-B AIRCRAFT</span><i>◆</i><span>AIS VESSELS</span><i>◆</i><span>SPY SATELLITES</span><i>◆</i><span>GPS JAMMING</span><i>◆</i><span>SEISMIC</span><i>◆</i><span>NASA FIRMS WILDFIRES</span><i>◆</i><span>22,000+ CCTV</span><i>◆</i><span>KIWISDR SHORTWAVE</span><i>◆</i><span>MESHTASTIC</span><i>◆</i><span>APRS</span><i>◆</i><span>SAR GROUND-CHANGE</span><i>◆</i><span>TELEGRAM OSINT</span><i>◆</i><span>MALWARE C2</span><i>◆</i><span>CISA KEV</span><i>◆</i><span>SUBMARINE CABLES</span><i>◆</i><span>SUPPLY-CHAIN RISK</span><i>◆</i>
+      </div>
+    </div>
+
+    <!-- ============ STATS ============ -->
+    <section class="stats-wrap" aria-label="Live numbers">
+      <p class="stats-live"><span class="dot live"></span>LIVE · <span id="statsAge">GitHub + GeckoTerminal</span></p>
+      <div class="stats">
+        <div class="stat"><div class="stat-num"><span data-live-stat="stars" data-fmt="int">11,580</span></div><div class="stat-label">GitHub stars</div></div>
+        <div class="stat"><div class="stat-num"><span data-live-stat="forks" data-fmt="int">1,849</span></div><div class="stat-label">forks</div></div>
+        <div class="stat"><div class="stat-num"><span data-live-stat="contributors" data-fmt="int">34</span></div><div class="stat-label">contributors</div></div>
+        <div class="stat"><div class="stat-num"><span data-live-stat="mcap" data-fmt="usd">—</span></div><div class="stat-label">$SB market cap</div></div>
+        <div class="stat"><div class="stat-num"><span data-live-stat="vol" data-fmt="usd">—</span></div><div class="stat-label">$SB 24h volume</div></div>
+      </div>
+    </section>
+
+    <!-- ============ MANIFESTO ============ -->
+    <section class="manifesto" aria-label="Why ShadowBroker exists">
+      <p class="kicker">// why this exists</p>
+      <p class="manifesto-text" id="manifesto">
+        A staggering amount of the world's telemetry is already public — transponders, AIS beacons, orbital
+        elements, seismic sensors, mesh radios, scanner feeds. It's scattered across dozens of tools.
+        <em>The knowledge is available to all but rarely aggregated in the open.</em> Until now.
+      </p>
+    </section>
+
+    <!-- ============ CAPABILITIES (horizontal) ============ -->
+    <section class="caps" id="capabilities" aria-labelledby="capsTitle">
+      <div class="caps-pin">
+        <div class="caps-stage">
+          <div class="caps-head">
+            <p class="kicker">// 01 — collection layers</p>
+            <h2 class="h2" id="capsTitle">Air, sea, orbit, earth, signals, cyber. <span class="dim">All on one screen.</span></h2>
+          </div>
+          <div class="caps-viewport" role="region" aria-label="Collection layers">
+            <div class="caps-track" id="capsTrack">
+              <article class="cap cap-intro">
+                <figure class="intro-shot">
+                  <img src="/media/app-usa.jpg" alt="ShadowBroker dashboard over the United States showing thousands of live aircraft, vessels and event markers" loading="lazy" width="1280" height="720" />
+                  <figcaption><span class="dot live red"></span>Real dashboard frame · FLIR mode · USA</figcaption>
+                </figure>
+                <div class="intro-copy">
+                  <span class="cap-idx">8 domains · 40+ layers</span>
+                  <h3>This is the actual dashboard.</h3>
+                  <p>Every layer toggles independently and every marker is clickable. Explore the collection domains →</p>
+                </div>
+              </article>
+              <article class="cap" data-domain="air">
+                <canvas class="cap-viz" data-viz="air" aria-hidden="true"></canvas>
+                <div class="cap-top"><span class="cap-idx">01 / 08</span><span class="cap-code">AIR</span></div>
+                <h3>Aircraft &amp; VIP tracking</h3>
+                <p>Air Force One and the presidential fleet are flagged from wheels-up. Billionaire and dictator jets, military tankers, ISR and fighters broadcasting ADS-B.</p>
+                <ul><li>Global coverage with a free OpenSky login</li><li>GPS-jamming zones from NAC-P degradation</li><li>Trains across the US &amp; Europe</li></ul>
+              </article>
+              <article class="cap" data-domain="sea">
+                <canvas class="cap-viz" data-viz="sea" aria-hidden="true"></canvas>
+                <div class="cap-top"><span class="cap-idx">02 / 08</span><span class="cap-code">SEA</span></div>
+                <h3>Naval &amp; maritime</h3>
+                <p class="cap-big"><b>25,000+</b> AIS vessels <span class="cap-key">free aisstream.io key</span></p>
+                <p>Fishing activity via Global Fishing Watch, billionaire superyachts — and aircraft-carrier position estimates from automated GDELT news scraping.</p>
+              </article>
+              <article class="cap" data-domain="orbit">
+                <canvas class="cap-viz" data-viz="orbit" aria-hidden="true"></canvas>
+                <div class="cap-top"><span class="cap-idx">03 / 08</span><span class="cap-code">ORBIT</span></div>
+                <h3>Satellites &amp; imagery</h3>
+                <p>Satellites color-coded by mission — military recon, SIGINT, SAR, early warning, space stations — with SatNOGS and TinyGS ground stations.</p>
+                <ul><li>Latest Sentinel-2 photo at 10 m for any point</li><li>SAR ground-change through cloud cover</li></ul>
+              </article>
+              <article class="cap" data-domain="earth">
+                <canvas class="cap-viz" data-viz="earth" aria-hidden="true"></canvas>
+                <div class="cap-top"><span class="cap-idx">04 / 08</span><span class="cap-code">EARTH</span></div>
+                <h3>Hazards &amp; infrastructure</h3>
+                <p>Earthquakes, volcanic eruptions, NASA FIRMS wildfires, severe weather and air quality — cross-referenced with infrastructure.</p>
+                <p class="cap-big"><b>35,000+</b> power plants<br /><b>2,000+</b> data centers</p>
+              </article>
+              <article class="cap" data-domain="eyes">
+                <canvas class="cap-viz" data-viz="eyes" aria-hidden="true"></canvas>
+                <div class="cap-top"><span class="cap-idx">05 / 08</span><span class="cap-code">EYES</span></div>
+                <h3>Live CCTV mesh</h3>
+                <p class="cap-big"><b>22,000+</b> cameras · 10 countries</p>
+                <p>Live traffic cameras from 21 ingestors — US, UK, Canada, Australia, Austria, Spain, Singapore and more — streaming right on the map.</p>
+              </article>
+              <article class="cap" data-domain="signals">
+                <canvas class="cap-viz" data-viz="signals" aria-hidden="true"></canvas>
+                <div class="cap-top"><span class="cap-idx">06 / 08</span><span class="cap-code">SIGINT</span></div>
+                <h3>Radio &amp; mesh</h3>
+                <p>Click a KiwiSDR node and tune live shortwave in the dashboard. One-click police scanners. Meshtastic and APRS nodes integrated into Mesh Chat.</p>
+                <ul><li>Telegram OSINT channels, geoparsed &amp; risk-scored</li></ul>
+              </article>
+              <article class="cap" data-domain="cyber">
+                <canvas class="cap-viz" data-viz="cyber" aria-hidden="true"></canvas>
+                <div class="cap-top"><span class="cap-idx">07 / 08</span><span class="cap-code">CYBER</span></div>
+                <h3>Cyber threat overlay</h3>
+                <p>Shodan device search (your own key, proxied server-side), malware C2 hotspots from abuse.ch Feodo &amp; URLhaus, CISA KEV, submarine cables and internet-outage regions.</p>
+              </article>
+              <article class="cap" data-domain="recon">
+                <canvas class="cap-viz" data-viz="recon" aria-hidden="true"></canvas>
+                <div class="cap-top"><span class="cap-idx">08 / 08</span><span class="cap-code">RECON</span></div>
+                <h3>Recon toolkit &amp; dossiers</h3>
+                <p>IP geolocation, DNS, RDAP/WHOIS, cert transparency, BGP/ASN, OFAC sanctions, CVE, Tor/OTX — plus a country dossier for any point on Earth.</p>
+                <ul><li>Entity graph: Wikidata + OFAC + live cross-links</li></ul>
+              </article>
+            </div>
+          </div>
+          <div class="caps-progress">
+            <span class="cp-count" aria-hidden="true"><b id="capsNow">00</b> / 08</span>
+            <div class="cp-rail" aria-hidden="true"><span id="capsBar"></span></div>
+            <span class="cp-hint" id="capsHint" aria-hidden="true">scroll or ← → keys</span>
+            <div class="cp-nav">
+              <button class="cp-btn" id="capsPrev" type="button" aria-label="Previous collection layer" aria-controls="capsTrack">←</button>
+              <button class="cp-btn" id="capsNext" type="button" aria-label="Next collection layer" aria-controls="capsTrack">→</button>
+            </div>
+            <span class="sr-only" id="capsLive" aria-live="polite"></span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ DEMO / VISUAL MODES ============ -->
+    <section class="demo" id="demo">
+      <div class="section-head">
+        <p class="kicker">// 02 — operator view</p>
+        <h2 class="h2">Five ways to see the world.</h2>
+        <p class="lede">DEFAULT, SATELLITE, FLIR thermal, NVG night vision, CRT terminal — switch modes with the STYLE button. Try them on the real demo footage:</p>
+      </div>
+      <div class="monitor" id="monitor" data-mode="default" data-reticle>
+        <div class="monitor-bar">
+          <span class="mb-dots"><i></i><i></i><i></i></span>
+          <span class="mb-title">shadowbroker://localhost:3000</span>
+          <span class="mb-rec"><span class="dot live red"></span>REC</span>
+        </div>
+        <div class="monitor-screen" id="monitorScreen" role="tabpanel" aria-label="Demo footage">
+          <video id="demoVideo" src="/media/demo.mp4" muted loop playsinline preload="none" data-poster="/media/demo-poster.jpg" aria-label="ShadowBroker dashboard demo recording"></video>
+          <div class="fx fx-nvg" aria-hidden="true"></div>
+          <div class="fx fx-crt" aria-hidden="true"></div>
+          <div class="fx fx-flir" aria-hidden="true"></div>
+          <div class="screen-hud" aria-hidden="true">
+            <span class="sh-mode" id="modeLabel">MODE: DEFAULT</span>
+            <span class="sh-corner tl"></span><span class="sh-corner tr"></span><span class="sh-corner bl"></span><span class="sh-corner br"></span>
+          </div>
+          <button class="play-toggle" id="playToggle" type="button" aria-label="Pause demo">❚❚</button>
+        </div>
+        <div class="mode-switch" role="tablist" aria-label="Visual mode">
+          <button role="tab" aria-selected="true" aria-controls="monitorScreen" data-mode="default">DEFAULT</button>
+          <button role="tab" aria-selected="false" aria-controls="monitorScreen" tabindex="-1" data-mode="satellite" aria-label="Satellite">SAT<span class="hide-m">ELLITE</span></button>
+          <button role="tab" aria-selected="false" aria-controls="monitorScreen" tabindex="-1" data-mode="flir">FLIR</button>
+          <button role="tab" aria-selected="false" aria-controls="monitorScreen" tabindex="-1" data-mode="nvg">NVG</button>
+          <button role="tab" aria-selected="false" aria-controls="monitorScreen" tabindex="-1" data-mode="crt">CRT</button>
+        </div>
+      </div>
+      <p class="fineprint center">Demo footage was recorded in the app's FLIR mode. The filters above are a browser preview layered on that video; the app re-renders the live map itself.</p>
+      <svg width="0" height="0" style="position:absolute" aria-hidden="true">
+        <filter id="f-flir" color-interpolation-filters="sRGB">
+          <feColorMatrix type="matrix" values="0.33 0.33 0.33 0 0  0.33 0.33 0.33 0 0  0.33 0.33 0.33 0 0  0 0 0 1 0" />
+          <feComponentTransfer>
+            <feFuncR type="table" tableValues="0 0.25 0.6 0.9 1 1 1" />
+            <feFuncG type="table" tableValues="0 0 0.05 0.3 0.6 0.85 1" />
+            <feFuncB type="table" tableValues="0.05 0.35 0.5 0.15 0 0.2 0.9" />
+          </feComponentTransfer>
+        </filter>
+        <filter id="f-nvg" color-interpolation-filters="sRGB">
+          <feColorMatrix type="matrix" values="0.1 0.2 0.05 0 0  0.4 0.9 0.2 0 0.04  0.1 0.25 0.05 0 0  0 0 0 1 0" />
+          <feComponentTransfer><feFuncG type="gamma" amplitude="1.35" exponent="0.8" offset="0" /></feComponentTransfer>
+        </filter>
+      </svg>
+    </section>
+
+    <!-- ============ AI AGENT ============ -->
+    <section class="agent" id="agent">
+      <div class="agent-copy">
+        <p class="kicker">// 03 — co-analyst</p>
+        <h2 class="h2">Plug in an AI agent. <span class="dim">Let it find what you'd miss.</span></h2>
+        <p class="lede">An HMAC-signed agentic command channel gives OpenClaw — or Claude, GPT, LangChain, any agent that speaks the protocol — the same view as the operator.</p>
+        <ul class="ticks">
+          <li><b>Read/write on all 40+ layers</b> — pins, map control, alerts</li>
+          <li><b>Cross-layer search</b> with <code>search_telemetry</code> &amp; <code>search_news</code></li>
+          <li><b>Full recon toolkit</b> via <code>osint_lookup</code> — IP, DNS, WHOIS, sanctions, CVE</li>
+          <li><b>Entity-graph expansion</b>, SAR ground-change and mesh networking</li>
+        </ul>
+      </div>
+      <div class="term">
+        <div class="term-bar"><span class="mb-dots"><i></i><i></i><i></i></span><span>openclaw ▸ shadowbroker channel</span><span class="term-tag">illustrative</span><button class="term-replay" id="termReplay" type="button" aria-label="Replay agent session">↻</button></div>
+        <pre class="term-body" id="termBody" aria-label="Illustrative agent session transcript"></pre>
+      </div>
+    </section>
+
+    <!-- ============ PRINCIPLES BENTO ============ -->
+    <section class="bento" aria-label="Platform principles">
+      <article class="tile tile-privacy">
+        <div class="lock" aria-hidden="true"><span></span></div>
+        <p class="kicker">// trust model</p>
+        <h3>No accounts. No analytics. No product telemetry.</h3>
+        <p>The dashboard's API calls go only to <em>your</em> self-hosted backend, and operator keys stay in your deployment. Sensitive recon and Shodan queries are proxied server-side behind SSRF guards and local-operator auth — never sent from the browser to third-party APIs.</p>
+        <p class="fineprint">As the README notes, live OSINT layers still fetch from the public data providers you enable (map tiles, imagery, camera streams).</p>
+      </article>
+      <article class="tile tile-mesh">
+        <canvas class="mesh-canvas" id="meshCanvas" aria-hidden="true"></canvas>
+        <div class="tile-body">
+          <p class="kicker">// infonet testnet</p>
+          <h3>A decentralized intelligence mesh, built into an OSINT tool.</h3>
+          <p>Obfuscated messaging with gate personas, Dead Drop peer-to-peer exchange, and a built-in terminal CLI. Click <b>NODE</b> in the dashboard to join the swarm.</p>
+          <ul class="mesh-facts">
+            <li><span>network</span>sb-testnet-0</li>
+            <li><span>peers</span>no manual list — fleet defaults find the seed</li>
+            <li><span>manifest</span>signed, pulled automatically</li>
+            <li><span>headless</span><code>./meshnode.sh</code></li>
+            <li><span>solo</span><code>MESH_INFONET_FLEET_JOIN=false</code></li>
+          </ul>
+          <p class="fineprint">Experimental testnet — privacy is not guaranteed yet; the protocol is live and being hardened.</p>
+        </div>
+      </article>
+      <article class="tile tile-sat">
+        <div class="tile-body">
+          <p class="kicker">// click anything</p>
+          <h3>Every contact comes with a file.</h3>
+          <p>Select an aircraft, vessel, company or IP to expand its entity graph. Right-click anywhere on Earth for a country dossier — head of state, population, languages — and the latest 10 m Sentinel-2 photo of that exact spot.</p>
+        </div>
+        <figure class="sat-shot">
+          <img src="/media/app-tracked.jpg" alt="Tracked-aircraft detail panel in the ShadowBroker dashboard with owner photo and aircraft image" loading="lazy" width="720" height="660" />
+          <figcaption>Tracked-aircraft panel · real UI</figcaption>
+        </figure>
+      </article>
+      <article class="tile tile-open">
+        <p class="kicker">// open source · AGPL-3.0</p>
+        <h3>Audit every line.</h3>
+        <p>Built with Next.js, MapLibre GL, FastAPI and Python. Fully open so anyone can verify what data is accessed and how.</p>
+        <div class="stack-tags"><span>Next.js</span><span>MapLibre GL</span><span>FastAPI</span><span>Python</span><span>Docker</span><span>Helm</span></div>
+      </article>
+    </section>
+
+
+    <!-- ============ DEPLOY ============ -->
+    <section class="deploy" id="deploy">
+      <div class="section-head">
+        <p class="kicker">// 04 — deploy</p>
+        <h2 class="h2">Operational in one command.</h2>
+        <p class="lede">Pick your OS, paste one line into a terminal. It clones the repo, pulls the pre-built signed images and opens the dashboard at <code>localhost:3000</code>. Needs Git and Docker running (Docker Desktop on macOS / Windows; the backend wants ~4 GB RAM). The first pull takes a few minutes — if the browser opens before the dashboard is up, refresh after a minute.</p>
+        <div class="keys-note">
+          <p class="kn-title">API keys — two free sign-ups unlock everything</p>
+          <ul>
+            <li><b>Ships (AIS)</b> — required for the vessel layer: free key at <a href="https://aisstream.io" target="_blank" rel="noopener">aisstream.io</a> → <code>AIS_API_KEY</code></li>
+            <li><b>Global flights</b> — free <a href="https://opensky-network.org" target="_blank" rel="noopener">OpenSky</a> OAuth login → <code>OPENSKY_CLIENT_ID</code> / <code>OPENSKY_CLIENT_SECRET</code></li>
+            <li><b>Optional</b> — your own <code>SHODAN_API_KEY</code> for the device-search overlay</li>
+          </ul>
+          <p class="kn-foot">Put them in a <code>.env</code> file in the <code>Shadowbroker</code> folder, then run <code>docker compose up -d</code> again. <b>Settings → API Keys</b> in the dashboard shows what's configured. Most other layers work with no keys at all.</p>
+        </div>
+      </div>
+      <div class="code-card">
+        <div class="code-head">
+          <div class="code-tabs" role="tablist" aria-label="Operating system">
+            <button role="tab" id="tab-mac" aria-selected="true" aria-controls="panel-mac" data-tab="mac">macOS</button>
+            <button role="tab" id="tab-linux" aria-selected="false" aria-controls="panel-linux" tabindex="-1" data-tab="linux">Linux</button>
+            <button role="tab" id="tab-ps" aria-selected="false" aria-controls="panel-ps" tabindex="-1" data-tab="ps">Windows PowerShell</button>
+            <button role="tab" id="tab-cmd" aria-selected="false" aria-controls="panel-cmd" tabindex="-1" data-tab="cmd">Windows CMD</button>
+            <button role="tab" id="tab-gl" aria-selected="false" aria-controls="panel-gl" tabindex="-1" data-tab="gl">GitLab · bash</button>
+          </div>
+          <button class="code-copy" type="button" id="codeCopy" aria-label="Copy command">copy<span class="hide-m"> command</span></button>
+        </div>
+<pre class="code code-one" id="panel-mac" role="tabpanel" aria-labelledby="tab-mac" data-panel="mac" tabindex="0"><code><span class="c-c"># Terminal (zsh) · needs Git + Docker Desktop</span>
+<span class="c-p">$</span> <span class="c-cmd">git clone https://github.com/bigbodycobain/Shadowbroker.git &amp;&amp; cd Shadowbroker &amp;&amp; docker compose pull &amp;&amp; docker compose up -d &amp;&amp; open http://localhost:3000</span></code></pre>
+<pre class="code code-one" id="panel-linux" role="tabpanel" aria-labelledby="tab-linux" data-panel="linux" tabindex="0" hidden><code><span class="c-c"># bash / zsh · needs Git + Docker</span>
+<span class="c-p">$</span> <span class="c-cmd">git clone https://github.com/bigbodycobain/Shadowbroker.git &amp;&amp; cd Shadowbroker &amp;&amp; docker compose pull &amp;&amp; docker compose up -d &amp;&amp; xdg-open http://localhost:3000</span></code></pre>
+<pre class="code code-one" id="panel-ps" role="tabpanel" aria-labelledby="tab-ps" data-panel="ps" tabindex="0" hidden><code><span class="c-c"># PowerShell · needs Git + Docker Desktop</span>
+<span class="c-p">PS&gt;</span> <span class="c-cmd">git clone https://github.com/bigbodycobain/Shadowbroker.git; if ($?) { cd Shadowbroker; docker compose pull; docker compose up -d; start http://localhost:3000 }</span></code></pre>
+<pre class="code code-one" id="panel-cmd" role="tabpanel" aria-labelledby="tab-cmd" data-panel="cmd" tabindex="0" hidden><code><span class="c-c"># Command Prompt · needs Git + Docker Desktop</span>
+<span class="c-p">&gt;</span> <span class="c-cmd">git clone https://github.com/bigbodycobain/Shadowbroker.git &amp;&amp; cd Shadowbroker &amp;&amp; docker compose pull &amp;&amp; docker compose up -d &amp;&amp; start http://localhost:3000</span></code></pre>
+<pre class="code code-one" id="panel-gl" role="tabpanel" aria-labelledby="tab-gl" data-panel="gl" tabindex="0" hidden><code><span class="c-c"># bash / zsh (macOS, Linux, WSL or Git Bash) · needs Git + Docker</span>
+<span class="c-p">$</span> <span class="c-cmd">git clone https://gitlab.com/bigbodycobain/Shadowbroker.git &amp;&amp; cd Shadowbroker &amp;&amp; docker compose -f docker-compose.yml -f docker-compose.gitlab.yml pull &amp;&amp; docker compose -f docker-compose.yml -f docker-compose.gitlab.yml up -d</span></code></pre>
+      </div>
+      <p class="fineprint center">Your OS is pre-selected. Update any time with <code id="updateCmd">docker compose pull &amp;&amp; docker compose up -d</code> inside the folder · Kubernetes users: a Helm chart ships in the repo.</p>
+    </section>
+
+    <!-- ============ THE BROKER ============ -->
+    <section class="broker" id="broker">
+      <div class="dossier">
+        <div class="portrait" id="portrait" data-reticle>
+          <img src="/media/broker.webp" alt="The Shadow Broker — a faceless hooded figure in shadow, rim-lit in blue and red" width="1000" height="1250" loading="lazy" />
+          <div class="portrait-scan" aria-hidden="true"></div>
+          <div class="portrait-grid" aria-hidden="true"></div>
+          <span class="pt-tag pt-tl" aria-hidden="true">SUBJECT 001</span>
+          <span class="pt-tag pt-br" aria-hidden="true"><span class="dot live red"></span>OBSERVING</span>
+          <div class="eye-lock" aria-hidden="true"><span></span></div>
+        </div>
+        <div class="dossier-file">
+          <p class="kicker red">// 05 — the broker</p>
+          <h2 class="h2">Every network<br />has a broker.</h2>
+          <dl class="file-rows">
+            <div><dt>Alias</dt><dd>BigBodyCobain</dd></div>
+            <div><dt>Comms</dt><dd><a class="xlink" href="https://x.com/BigBodyCobain" target="_blank" rel="noopener"><svg viewBox="0 0 24 24" width="15" height="15" aria-hidden="true"><path fill="currentColor" d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>@BigBodyCobain</a></dd></div>
+            <div><dt>Last seen</dt><dd>Hagalaz</dd></div>
+            <div><dt>Role</dt><dd>Architect · maintainer · node zero</dd></div>
+            <div><dt>Known assets</dt><dd><span data-gh-stars>11.6K</span> stars · <span data-gh-forks>1.85K</span> forks · <span data-gh-contrib>34</span> contributors</dd></div>
+            <div><dt>Identity</dt><dd><button class="redact" type="button" aria-label="Identity: classified">CLASSIFIED</button></dd></div>
+            <div><dt>Status</dt><dd class="st-active">ACTIVE — shipping</dd></div>
+          </dl>
+          <blockquote class="broker-quote">“Hook an AI agent up to have it parse through data and find previously unseen correlations.”<cite>— ShadowBroker repository description</cite></blockquote>
+          <div class="hero-ctas">
+            <a class="btn btn-red" href="https://x.com/BigBodyCobain" target="_blank" rel="noopener"><span>Follow the Broker on X</span><span class="btn-arrow">↗</span></a>
+            <a class="btn btn-ghost" href="https://github.com/BigBodyCobain" target="_blank" rel="noopener"><span>Open file on GitHub</span><span class="btn-arrow">↗</span></a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ TOKEN ============ -->
+    <section class="token" id="token">
+      <div class="token-glow" aria-hidden="true"></div>
+      <div class="section-head">
+        <p class="kicker">// 06 — the token</p>
+        <h2 class="h2 token-title"><span class="sb-big">$SB</span><br />The community token of the open intel stack.</h2>
+        <p class="lede">$SB is the ShadowBroker community token on Solana, launched on pump.fun. Verify it yourself: the <a class="inline-link" href="https://github.com/BigBodyCobain/Shadowbroker" target="_blank" rel="noopener">GitHub repository's homepage field</a> links to this site, shadowbroker.dev, and the contract address below is the only one this site lists.</p>
+      </div>
+
+      <div class="token-grid" id="token-data">
+        <div class="token-card">
+          <div class="tc-head">
+            <img src="/media/sb-logo-sm.webp" alt="$SB token logo" width="56" height="56" />
+            <div class="tc-id">
+              <div class="tc-name">ShadowBroker <span>SB</span></div>
+              <div class="tc-chain"><span class="sol-dot"></span>Solana · pump.fun</div>
+            </div>
+            <div class="tc-live" aria-live="off"><span class="dot live"></span><span id="tokUpdated">live</span></div>
+          </div>
+          <div class="tc-price">
+            <span class="tcp-val" id="tokPrice">$—</span>
+            <span class="tcp-chg" id="tokChg">—</span>
+            <span class="tcp-lbl">24h</span>
+          </div>
+          <div class="tc-metrics">
+            <div><span>Market cap</span><b id="tokMcap">—</b></div>
+            <div><span>24h volume</span><b id="tokVol">—</b></div>
+            <div><span>24h buys / sells</span><b id="tokTx" class="nowrap">—</b></div>
+            <div><span>1h change</span><b id="tokH1">—</b></div>
+          </div>
+          <div class="txbar" aria-hidden="true"><span id="txBuy"></span></div>
+          <ul class="tc-trust" aria-label="On-chain checks (verified via Solana RPC at build time)">
+            <li id="trustMint"><i></i>Mint authority <b>checking…</b></li>
+            <li id="trustFreeze"><i></i>Freeze authority <b>checking…</b></li>
+            <li id="trustCurve"><i></i>Market <b>checking…</b></li>
+          </ul>
+
+          <button class="ca-block" type="button" data-copy="8Uk9f5WfJndkC9VkFRLDwEpHgD2KD8BcFbqh5zuBpump" aria-label="Copy contract address 8Uk9f5WfJndkC9VkFRLDwEpHgD2KD8BcFbqh5zuBpump">
+            <span class="cab-lbl">Contract address</span>
+            <span class="cab-val"><span class="cab-full">8Uk9f5WfJndkC9VkFRLDwEpHgD2KD8BcFbqh5zuBpump</span><span class="cab-short">8Uk9f5Wf…5zuBpump</span></span>
+            <span class="cab-act" data-copy-label>copy</span>
+          </button>
+
+          <div class="tc-ctas">
+            <a class="btn btn-buy tc-primary" href="https://pump.fun/coin/8Uk9f5WfJndkC9VkFRLDwEpHgD2KD8BcFbqh5zuBpump" target="_blank" rel="noopener"><span>Buy on pump.fun</span><span class="btn-arrow">→</span></a>
+            <a class="btn btn-ghost" href="https://www.geckoterminal.com/solana/pools/Ee3iKwnaexKR1ghtDhxJhx7Yo34c9rwogKZhyMurVM6s" target="_blank" rel="noopener"><span>GeckoTerminal</span><span class="btn-arrow">↗</span></a>
+            <a class="btn btn-ghost" href="https://solscan.io/token/8Uk9f5WfJndkC9VkFRLDwEpHgD2KD8BcFbqh5zuBpump" target="_blank" rel="noopener"><span>Solscan</span><span class="btn-arrow">↗</span></a>
+            <a class="btn btn-ghost" href="https://x.com/i/communities/2033233231513014322" target="_blank" rel="noopener"><span>X Community</span><span class="btn-arrow">↗</span></a>
+          </div>
+          <p class="fineprint">Market data: GeckoTerminal public API, refreshed every 30 s. Not financial advice.</p>
+        </div>
+
+        <div class="chart-card">
+          <div class="chart-frame" id="chartFrame">
+            <button class="chart-load" id="chartLoad" type="button">
+              <span class="cl-ring"></span>
+              <span>Load live chart</span>
+              <small>click to embed GeckoTerminal (third-party)</small>
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <ol class="howto">
+        <li><span class="ht-n">01</span><h3>Get a Solana wallet</h3><p>Phantom, Solflare or Backpack. Write down your recovery phrase offline.</p></li>
+        <li><span class="ht-n">02</span><h3>Fund it with SOL</h3><p>Buy SOL on an exchange and send it to your wallet address.</p></li>
+        <li><span class="ht-n">03</span><h3>Open $SB on pump.fun</h3><p>Connect your wallet on the official coin page linked above.</p></li>
+        <li><span class="ht-n">04</span><h3>Verify, then swap</h3><p>Compare the <em>whole</em> contract address with the one on this page before you trade: <code>8Uk9f5WfJndkC9VkFRLDwEpHgD2KD8BcFbqh5zuBpump</code>. Copycats can fake a matching ending.</p></li>
+      </ol>
+      <p class="fineprint center risk">⚠ Memecoins can drop to zero in minutes. $SB carries no rights to the software, revenue or its developers. Never invest more than you can afford to lose.</p>
+    </section>
+
+    <!-- ============ FAQ ============ -->
+    <section class="faq" id="faq" aria-labelledby="faqTitle">
+      <div class="section-head">
+        <p class="kicker">// 07 — faq</p>
+        <h2 class="h2" id="faqTitle">Questions, answered.</h2>
+      </div>
+      <div class="faq-list">
+        <details class="faq-item" open>
+          <summary>Is ShadowBroker free?</summary>
+          <p>Yes. ShadowBroker is open-source software under the AGPL-3.0 licence. You run it yourself with Docker, so there is no subscription and nothing to pay for the software. A few optional data sources (such as Shodan) need your own key from that provider.</p>
+        </details>
+        <details class="faq-item">
+          <summary>Do I need an account?</summary>
+          <p>No. ShadowBroker has no accounts, no product telemetry and no analytics. The dashboard talks only to the backend you host yourself. Live layers do make outbound requests to the public data providers you turn on.</p>
+        </details>
+        <details class="faq-item">
+          <summary>What data does it show?</summary>
+          <p>60+ live public feeds across 40+ map layers: aircraft (ADS-B), ships (AIS), satellites, earthquakes, volcanoes and wildfires (NASA FIRMS), GPS jamming, CCTV cameras, KiwiSDR radio, Meshtastic and APRS mesh radio, trains, power plants and data centres, Telegram OSINT channels, and cyber threat feeds such as CISA KEV.</p>
+        </details>
+        <details class="faq-item">
+          <summary>How do I install it?</summary>
+          <p>You need Git and Docker running (Docker Desktop on macOS and Windows; the backend wants about 4 GB of RAM). Paste the one-line command for your OS from the deploy section: it clones the repo, pulls the pre-built images and opens the dashboard at localhost:3000.</p>
+        </details>
+        <details class="faq-item">
+          <summary>Which API keys do I need?</summary>
+          <p>Most layers work with no keys at all. Two free sign-ups unlock the rest: an aisstream.io key for ships (AIS_API_KEY) and an OpenSky login for global flights (OPENSKY_CLIENT_ID and OPENSKY_CLIENT_SECRET). Shodan is optional and uses your own key.</p>
+        </details>
+        <details class="faq-item">
+          <summary>Is this a surveillance tool?</summary>
+          <p>It does not create new surveillance capabilities. ShadowBroker brings together datasets that are already public, such as aircraft and ship transponder broadcasts, satellite orbits and earthquake sensors, and shows them on one map. The code is fully open source, so anyone can audit what data it accesses and how.</p>
+        </details>
+        <details class="faq-item">
+          <summary>Can I connect an AI agent?</summary>
+          <p>Yes. ShadowBroker has an HMAC-signed agent command channel that works with OpenClaw and any agent that speaks the protocol, including Claude- and GPT-based agents. The agent can search telemetry and news across all layers, run recon lookups, place pins and control the map.</p>
+        </details>
+        <details class="faq-item">
+          <summary>What is $SB?</summary>
+          <p>$SB is the ShadowBroker community token on Solana, launched on pump.fun. The software itself is free and does not require the token.</p>
+        </details>
+      </div>
+    </section>
+
+    <!-- ============ FINAL CTA ============ -->
+    <section class="final" aria-labelledby="finalTitle">
+      <img src="/media/sb-mark.webp" alt="" class="final-mark" width="180" height="151" loading="lazy" />
+      <h2 class="final-title" id="finalTitle"><span class="ft-line" data-scramble-on-view>See what the world looks like</span> <span class="ft-line" data-scramble-on-view>when every signal is on the same map.</span></h2>
+      <div class="final-strip" aria-label="Live snapshot">
+        <div><span>$SB market cap</span><b data-live-mc>—</b></div>
+        <div><span>GitHub stars</span><b data-gh-stars>11.6K</b></div>
+        <div><span>Quakes on the map · 24h</span><b data-live-quakes>—</b></div>
+        <div><span>Mint / freeze</span><b class="up">revoked</b></div>
+      </div>
+      <div class="hero-ctas center">
+        <a class="btn btn-buy" href="https://pump.fun/coin/8Uk9f5WfJndkC9VkFRLDwEpHgD2KD8BcFbqh5zuBpump" target="_blank" rel="noopener"><span>Buy $SB</span><span class="btn-arrow">→</span></a>
+        <a class="btn btn-ghost" href="https://github.com/BigBodyCobain/Shadowbroker" target="_blank" rel="noopener"><span>Star on GitHub</span><span class="btn-arrow">★</span></a>
+      </div>
+      <button class="ca-chip final-ca" type="button" data-copy="8Uk9f5WfJndkC9VkFRLDwEpHgD2KD8BcFbqh5zuBpump" aria-label="Copy $SB contract address 8Uk9f5WfJndkC9VkFRLDwEpHgD2KD8BcFbqh5zuBpump">
+        <span class="ca-tag">CA</span><span class="ca-val">8Uk9f5Wf…5zuBpump</span><span class="ca-act" data-copy-label>copy</span>
+      </button>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="foot-row">
+      <a href="#top" class="brand" aria-label="ShadowBroker — back to top"><img src="/media/sb-mark-72.webp" alt="" width="30" height="25" /><span class="brand-word">SHADOW<b>BROKER</b></span></a>
+      <nav class="foot-links" aria-label="Footer">
+        <a href="https://github.com/BigBodyCobain/Shadowbroker" target="_blank" rel="noopener">GitHub</a>
+        <a href="https://gitlab.com/bigbodycobain/Shadowbroker" target="_blank" rel="noopener">GitLab</a>
+        <a href="https://x.com/BigBodyCobain" target="_blank" rel="noopener">X @BigBodyCobain</a>
+        <a href="https://x.com/i/communities/2033233231513014322" target="_blank" rel="noopener">X Community</a>
+        <a href="https://www.geckoterminal.com/solana/pools/Ee3iKwnaexKR1ghtDhxJhx7Yo34c9rwogKZhyMurVM6s" target="_blank" rel="noopener">GeckoTerminal</a>
+        <a href="https://solscan.io/token/8Uk9f5WfJndkC9VkFRLDwEpHgD2KD8BcFbqh5zuBpump" target="_blank" rel="noopener">Solscan</a>
+        <a href="https://pump.fun/coin/8Uk9f5WfJndkC9VkFRLDwEpHgD2KD8BcFbqh5zuBpump" target="_blank" rel="noopener">pump.fun</a>
+      </nav>
+    </div>
+    <p class="disclaimer">
+      ShadowBroker aggregates and visualizes existing public datasets; it does not introduce new surveillance capabilities. Use it lawfully and respect each data provider's terms.
+      $SB is a highly volatile memecoin with no intrinsic value, no promise of returns, and no claim on the software or its developers. Nothing on this site is financial advice. Only spend what you can afford to lose. DYOR.
+    </p>
+    <p class="copyright">Intelligence today. Advantage tomorrow.</p>
+  </footer>
+
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+</body>
+</html>

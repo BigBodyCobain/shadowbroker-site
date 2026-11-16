@@ -1,0 +1,42 @@
+# ShadowBroker
+
+> ShadowBroker is a free, open-source (AGPL-3.0), self-hosted OSINT and geospatial intelligence platform. It fuses 60+ live public data feeds — aircraft, ships, satellites, earthquakes, wildfires, GPS jamming, CCTV, radio, mesh networks and cyber threats — onto one real-time map. No accounts, no product telemetry, no analytics.
+
+ShadowBroker is built with Next.js, MapLibre GL, FastAPI and Python, and runs with Docker. It aggregates datasets that are already public; it does not add new surveillance capabilities, and the full source is open for audit. It is aimed at analysts, researchers, radio operators and anyone who wants every public signal on the same map.
+
+## What it shows
+
+- Aircraft (ADS-B via OpenSky), including highlighted presidential and government aircraft, military tankers and ISR flights
+- Ships (AIS via aisstream.io), fishing activity (Global Fishing Watch) and superyachts
+- Satellites colour-coded by mission, plus SatNOGS and TinyGS ground stations
+- Earthquakes, volcanoes, wildfires (NASA FIRMS), severe weather and air quality
+- GPS jamming zones derived from aircraft transponder accuracy data
+- 11,000+ public CCTV cameras in six countries
+- KiwiSDR shortwave radio, police scanners, Meshtastic and APRS radio networks
+- Trains in the US (Amtraker) and Europe (DigiTraffic)
+- Military bases, power plants, data centres, internet outages and submarine cables
+- Telegram OSINT channels, geoparsed onto the map
+- Cyber threat feeds: CISA KEV, abuse.ch Feodo Tracker and URLhaus
+- SAR ground-change detection (NASA OPERA, Copernicus EGMS) and Sentinel-2 imagery
+- Estimated US aircraft-carrier positions from GDELT news reports
+
+## Tools
+
+- Recon toolkit: IP geolocation, DNS, RDAP/WHOIS, certificate transparency, BGP/ASN, OFAC sanctions, CVE lookup, run server-side
+- Optional Shodan device-search overlay with your own API key
+- Visual modes: default, satellite, FLIR (thermal), NVG (night vision) and CRT
+- Time Machine snapshot playback
+- AI agent command channel (HMAC-signed) for OpenClaw and compatible agents
+- InfoNet: an experimental decentralized messaging mesh (testnet)
+
+## Install
+
+Needs Git and Docker (the backend wants about 4 GB of RAM). One command clones the repo, pulls pre-built images and opens the dashboard at http://localhost:3000. Most layers need no keys; free keys from aisstream.io (ships) and OpenSky (flights) unlock the rest.
+
+## Links
+
+- Website: https://shadowbroker.dev
+- Source (GitHub): https://github.com/BigBodyCobain/Shadowbroker
+- Source mirror (GitLab): https://gitlab.com/bigbodycobain/Shadowbroker
+- X: https://x.com/BigBodyCobain
+- Community token: $SB on Solana (pump.fun). The software is free and does not require the token.
