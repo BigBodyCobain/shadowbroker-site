@@ -6,7 +6,25 @@
   <title>ShadowBroker ($SB) — Every public signal. One map.</title>
   <meta name="description" content="ShadowBroker is an open-source, self-hosted OSINT platform that fuses 60+ live public feeds (aircraft, ships, satellites, seismic, cyber, radio) onto one dark-ops map. $SB is its community token on Solana." />
   <meta name="theme-color" content="#03060c" />
-  <style>html,body{color:#e8f1ff;background:#03060c;margin:0}</style>
+  <style>
+    :root{--bg:#03060c;--text:#e8f1ff;color-scheme:dark}
+    html,body{color:var(--text);background:var(--bg);margin:0}
+    @media (prefers-color-scheme:light){:root:not([data-theme="dark"]){--bg:#f8fafc;--text:#03060c;color-scheme:light}}
+    :root[data-theme="dark"]{--bg:#03060c;--text:#e8f1ff;color-scheme:dark}
+    :root[data-theme="light"]{--bg:#f8fafc;--text:#03060c;color-scheme:light}
+  </style>
+  <script>
+    (function () {
+      try {
+        var m = localStorage.getItem('sb-theme-mode');
+        var t = (m === 'light' || m === 'dark') ? m
+              : (matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark');
+        document.documentElement.setAttribute('data-theme', t);
+        var meta = document.querySelector('meta[name="theme-color"]');
+        if (meta) meta.setAttribute('content', t === 'light' ? '#f8fafc' : '#03060c');
+      } catch (e) { document.documentElement.setAttribute('data-theme', 'dark'); }
+    })();
+  </script>
   <script>
     (function () {
       try {
@@ -47,6 +65,7 @@
   <script type="module" crossorigin src="/assets/main-DaIChqBi.js"></script>
   <link rel="modulepreload" crossorigin href="/assets/modulepreload-polyfill-P2Xu9kJm.js">
   <link rel="stylesheet" crossorigin href="/assets/main-BGHL22s3.css">
+  <script src="/assets/theme.js" defer></script>
 </head>
 <body>
   <a class="skip-link" href="#main">Skip to content</a>
@@ -89,6 +108,7 @@
         <span class="gh-stars" data-gh-stars>11.6K</span>
       </a>
       <a class="btn btn-buy btn-sm" href="https://pump.fun/coin/8Uk9f5WfJndkC9VkFRLDwEpHgD2KD8BcFbqh5zuBpump" target="_blank" rel="noopener">Buy $SB</a>
+      <button class="theme-toggle" type="button" data-theme-toggle aria-label="Color theme: auto. Activate to change." title="Theme: auto — click to change"><span class="tt-ico" aria-hidden="true">◐</span><span class="tt-lbl">AUTO</span></button>
       <button class="nav-burger" id="burger" type="button" aria-label="Open menu" aria-expanded="false" aria-controls="mobileMenu"><span></span><span></span></button>
     </div>
   </header>
