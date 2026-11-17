@@ -6,7 +6,25 @@
   <title>$SB Screener — ShadowBroker token chart, trades and links</title>
   <meta name="description" content="Live $SB (ShadowBroker) price chart, trades, holders, bonding-curve progress and the official links. Contract 8Uk9f5WfJndkC9VkFRLDwEpHgD2KD8BcFbqh5zuBpump on Solana." />
   <meta name="theme-color" content="#03060c" />
-  <style>html,body{color:#e8f1ff;background:#03060c;margin:0}</style>
+  <style>
+    :root{--bg:#03060c;--text:#e8f1ff;color-scheme:dark}
+    html,body{color:var(--text);background:var(--bg);margin:0}
+    @media (prefers-color-scheme:light){:root:not([data-theme="dark"]){--bg:#f8fafc;--text:#03060c;color-scheme:light}}
+    :root[data-theme="dark"]{--bg:#03060c;--text:#e8f1ff;color-scheme:dark}
+    :root[data-theme="light"]{--bg:#f8fafc;--text:#03060c;color-scheme:light}
+  </style>
+  <script>
+    (function () {
+      try {
+        var m = localStorage.getItem('sb-theme-mode');
+        var t = (m === 'light' || m === 'dark') ? m
+              : (matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark');
+        document.documentElement.setAttribute('data-theme', t);
+        var meta = document.querySelector('meta[name="theme-color"]');
+        if (meta) meta.setAttribute('content', t === 'light' ? '#f8fafc' : '#03060c');
+      } catch (e) { document.documentElement.setAttribute('data-theme', 'dark'); }
+    })();
+  </script>
   <link rel="icon" type="image/png" href="/media/favicon.png" />
   <link rel="apple-touch-icon" href="/media/apple-touch-icon.png" />
   <link rel="canonical" href="https://shadowbroker.dev/sb/" />
@@ -21,6 +39,7 @@
   <script type="module" crossorigin src="/assets/sb-DJEXQi9x.js"></script>
   <link rel="modulepreload" crossorigin href="/assets/modulepreload-polyfill-P2Xu9kJm.js">
   <link rel="stylesheet" crossorigin href="/assets/sb-COKj71-s.css">
+  <script src="/assets/theme.js" defer></script>
 </head>
 <body>
   <header class="sx-nav">
@@ -30,6 +49,7 @@
     </a>
     <span class="sx-crumb">/ $SB Screener</span>
     <a class="sx-home" href="/">← Home</a>
+    <button class="theme-toggle" type="button" data-theme-toggle aria-label="Color theme: auto. Activate to change." title="Theme: auto — click to change"><span class="tt-ico" aria-hidden="true">◐</span><span class="tt-lbl">AUTO</span></button>
   </header>
 
   <main class="sx" id="main">
