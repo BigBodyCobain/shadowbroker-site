@@ -27,7 +27,7 @@
           outline: none;
         }
         .sb-token-mark { color: #2cf5a0; background: color-mix(in srgb, #2cf5a0 16%, transparent); }
-      `})]})}let rT="(max-width: 820px), (max-height: 520px)",r_="(max-height: 520px) and (min-width: 560px)";function rR(e){let t=document.getElementById(e);if(!t)return;let r="contents"===getComputedStyle(t).display?t.nextElementSibling:t,a=r?.closest(".sb-left-col, .sb-right-col");r&&a&&(a.scrollTop+=r.getBoundingClientRect().top-a.getBoundingClientRect().top-10)}function rL({open:e,onLayers:t,onIntel:r,onChat:i,onAbout:s}){let n=[{id:"layers",label:"Layers",icon:(0,a.jsx)(en.A,{size:19,"aria-hidden":"true"}),active:"layers"===e,onClick:t},{id:"intel",label:"Intel",icon:(0,a.jsx)(J.A,{size:19,"aria-hidden":"true"}),active:"intel"===e,onClick:r},{id:"chat",label:"Chat",icon:(0,a.jsx)(ri.A,{size:19,"aria-hidden":"true"}),active:!1,onClick:i},{id:"about",label:"About",icon:(0,a.jsx)(ra.A,{size:19,"aria-hidden":"true"}),active:!1,onClick:s}];return(0,a.jsx)("nav",{className:"sb-phone-nav hud-zone","aria-label":"Map panels",children:n.map(e=>(0,a.jsxs)("button",{type:"button",onClick:e.onClick,"aria-pressed":e.active,className:`sb-phone-nav-btn ${e.active?"is-active":""}`,children:[e.icon,(0,a.jsx)("span",{children:e.label})]},e.id))})}function rI(){return(0,a.jsx)("style",{children:`
+      `})]})}let rT="(max-width: 820px), (max-height: 520px)",r_="(max-height: 520px) and (min-width: 560px)";function rR(e){let t=document.getElementById(e);if(!t)return;let r="contents"===getComputedStyle(t).display?t.nextElementSibling:t,a=r?.closest(".sb-left-col, .sb-right-col");r&&a&&(a.scrollTop+=r.getBoundingClientRect().top-a.getBoundingClientRect().top-10)}function rL({open:e,onLayers:t,onIntel:r,onChat:i,onAbout:s}){let n=(e,t,r,i,s)=>(0,a.jsxs)("button",{type:"button",onClick:s,"aria-pressed":i,className:`sb-phone-nav-btn ${i?"is-active":""}`,children:[r,(0,a.jsx)("span",{children:t})]},e);return(0,a.jsxs)("nav",{className:"sb-phone-nav hud-zone","aria-label":"Map panels",children:[n("layers","Layers",(0,a.jsx)(en.A,{size:19,"aria-hidden":"true"}),"layers"===e,t),n("intel","Intel",(0,a.jsx)(J.A,{size:19,"aria-hidden":"true"}),"intel"===e,r),(0,a.jsxs)("a",{href:p.href,target:"_blank",rel:"noopener noreferrer",className:"sb-phone-nav-btn sb-phone-nav-token","aria-label":`${p.symbol} on pump.fun (opens in a new tab)`,children:[(0,a.jsx)(rj.A,{size:19,"aria-hidden":"true"}),(0,a.jsx)("span",{children:p.symbol})]}),n("chat","Chat",(0,a.jsx)(ri.A,{size:19,"aria-hidden":"true"}),!1,i),n("about","About",(0,a.jsx)(ra.A,{size:19,"aria-hidden":"true"}),!1,s)]})}function rI(){return(0,a.jsx)("style",{children:`
       .sb-phone-nav { display: none; }
       @media ${rT} {
         /* brand: one small line at the top */
@@ -64,7 +64,7 @@
 
         /* bottom bar */
         .sb-phone-nav {
-          display: grid; grid-template-columns: repeat(4, 1fr);
+          display: grid; grid-template-columns: repeat(5, 1fr);
           position: fixed; left: 0; right: 0; bottom: 0; z-index: 320;
           padding: 6px 6px calc(6px + env(safe-area-inset-bottom, 0px));
           background: linear-gradient(180deg, rgba(8, 18, 32, 0.96), rgba(3, 8, 16, 0.99));
@@ -78,6 +78,10 @@
           letter-spacing: 0.14em; text-transform: uppercase; -webkit-tap-highlight-color: transparent;
         }
         .sb-phone-nav-btn.is-active { color: #7fdcff; border-color: rgba(69, 216, 255, 0.4); background: rgba(30, 155, 255, 0.14); }
+        .sb-phone-nav-token { color: #2cf5a0; text-decoration: none; }
+        .sb-phone-nav-token svg { filter: drop-shadow(0 0 6px rgba(44, 245, 160, 0.55)); }
+        /* the token has its own button in the bar, so its card leaves the Intel sheet */
+        .sb-token-card { display: none !important; }
 
         /* touch: the map owns pinch and drag; sheets only scroll up and down; nothing zooms the page itself */
         .sb-left-col, .sb-right-col { touch-action: pan-y; -webkit-overflow-scrolling: touch; }
