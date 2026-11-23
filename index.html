@@ -44,9 +44,9 @@
   {"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "Is ShadowBroker free?", "acceptedAnswer": {"@type": "Answer", "text": "Yes. ShadowBroker is open-source software under the AGPL-3.0 licence. You run it yourself with Docker, so there is no subscription and nothing to pay for the software. A few optional data sources (such as Shodan) need your own key from that provider."}}, {"@type": "Question", "name": "Do I need an account?", "acceptedAnswer": {"@type": "Answer", "text": "No. ShadowBroker has no accounts, no product telemetry and no analytics. The dashboard talks only to the backend you host yourself. Live layers do make outbound requests to the public data providers you turn on."}}, {"@type": "Question", "name": "What data does it show?", "acceptedAnswer": {"@type": "Answer", "text": "60+ live public feeds across 40+ map layers: aircraft (ADS-B), ships (AIS), satellites, earthquakes, volcanoes and wildfires (NASA FIRMS), GPS jamming, CCTV cameras, KiwiSDR radio, Meshtastic and APRS mesh radio, trains, power plants and data centres, Telegram OSINT channels, and cyber threat feeds such as CISA KEV."}}, {"@type": "Question", "name": "How do I install it?", "acceptedAnswer": {"@type": "Answer", "text": "You need Git and Docker running (Docker Desktop on macOS and Windows; the backend wants about 4 GB of RAM). Paste the one-line command for your OS from the deploy section: it clones the repo, pulls the pre-built images and opens the dashboard at localhost:3000."}}, {"@type": "Question", "name": "Which API keys do I need?", "acceptedAnswer": {"@type": "Answer", "text": "Most layers work with no keys at all. Two free sign-ups unlock the rest: an aisstream.io key for ships (AIS_API_KEY) and an OpenSky login for global flights (OPENSKY_CLIENT_ID and OPENSKY_CLIENT_SECRET). Shodan is optional and uses your own key."}}, {"@type": "Question", "name": "Is this a surveillance tool?", "acceptedAnswer": {"@type": "Answer", "text": "It does not create new surveillance capabilities. ShadowBroker brings together datasets that are already public, such as aircraft and ship transponder broadcasts, satellite orbits and earthquake sensors, and shows them on one map. The code is fully open source, so anyone can audit what data it accesses and how."}}, {"@type": "Question", "name": "Can I connect an AI agent?", "acceptedAnswer": {"@type": "Answer", "text": "Yes. ShadowBroker has an HMAC-signed agent command channel that works with OpenClaw and any agent that speaks the protocol, including Claude- and GPT-based agents. The agent can search telemetry and news across all layers, run recon lookups, place pins and control the map."}}, {"@type": "Question", "name": "What is $SB?", "acceptedAnswer": {"@type": "Answer", "text": "$SB is the ShadowBroker community token on Solana, launched on pump.fun. The software itself is free and does not require the token."}}]}
   </script>
   <noscript><style>#boot{display:none!important}.reveal{opacity:1!important;transform:none!important}.manifesto-text .w,.globe-poster{opacity:1!important}</style></noscript>
-  <script type="module" crossorigin src="/assets/main-shEGQT37.js"></script>
+  <script type="module" crossorigin src="/assets/main-BrrcwyOz.js"></script>
   <link rel="modulepreload" crossorigin href="/assets/modulepreload-polyfill-P2Xu9kJm.js">
-  <link rel="stylesheet" crossorigin href="/assets/main-Dp5WrnQS.css">
+  <link rel="stylesheet" crossorigin href="/assets/main-CBbTkG57.css">
 </head>
 <body>
   <a class="skip-link" href="#main">Skip to content</a>
@@ -65,6 +65,39 @@
   <div class="scanlines" aria-hidden="true"></div>
   <div id="reticle" aria-hidden="true"><span class="r-ring"></span><span class="r-dot"></span><span class="r-label" id="reticleLabel"></span></div>
 
+  <!-- ============ ENTRY CHOICE ============
+       Shown on arrival only when the build has a live-map address
+       (VITE_LIVE_MAP_URL). Hidden by default, so without it, without
+       JavaScript, and for search engines the site loads as normal. -->
+  <div class="gate" id="gate" role="dialog" aria-modal="true" aria-labelledby="gateTitle" hidden>
+    <div class="gate-inner">
+      <img class="gate-mark" src="/media/sb-mark-72.webp" alt="" width="54" height="45" />
+      <p class="kicker gate-kicker">// uplink established</p>
+      <h2 class="gate-title" id="gateTitle">Where to?</h2>
+      <div class="gate-choices">
+        <a class="gate-card gate-map" id="gateMap" data-live-map href="https://live.shadowbroker.dev/">
+          <span class="gate-tag"><i class="gate-dot" aria-hidden="true"></i>Live now</span>
+          <b class="gate-name">Open the live map</b>
+          <span class="gate-desc">Aircraft, ships, satellites and world events, updating as you watch. Look-only. Nothing to install.</span>
+          <span class="gate-go">Launch map <span aria-hidden="true">→</span></span>
+        </a>
+        <button class="gate-card gate-site" id="gateSite" type="button">
+          <span class="gate-tag">The project</span>
+          <b class="gate-name">Explore the website</b>
+          <span class="gate-desc">What ShadowBroker is, how to run the full app yourself, and the $SB token.</span>
+          <span class="gate-go">Enter site <span aria-hidden="true">→</span></span>
+        </button>
+        <a class="gate-card gate-skill" id="gateSkill" data-live-skill href="https://live.shadowbroker.dev/#skill">
+          <span class="gate-tag">For AI agents</span>
+          <b class="gate-name">Turn your agent into a ShadowBroker</b>
+          <span class="gate-desc">One free skill and your AI agent can answer "where is that plane?" or "what ships are near here?". Read every line before you install it.</span>
+          <span class="gate-go">See the skill <span aria-hidden="true">→</span></span>
+        </a>
+      </div>
+      <label class="gate-remember"><input type="checkbox" id="gateRemember" /> Go straight to the website next time</label>
+    </div>
+  </div>
+
   <!-- ============ NAV ============ -->
   <header class="nav" id="nav">
     <a href="#top" class="brand" aria-label="ShadowBroker — back to top">
@@ -80,6 +113,7 @@
       <a href="#token-data" data-section="#token">$SB</a>
     </nav>
     <div class="nav-cta">
+      <a class="gh-pill live-pill" data-live-map href="https://live.shadowbroker.dev/" hidden><i class="gate-dot" aria-hidden="true"></i>Live map</a>
       <a class="nav-price" href="#token-data" aria-label="$SB live market cap — jump to token data">
         <span class="np-sym">$SB</span><span class="np-lbl">MC</span><span class="np-val" id="navPrice">—</span><span class="np-chg" id="navChg"></span>
       </a>
@@ -100,6 +134,7 @@
     <a href="#deploy">Deploy</a>
     <a href="#broker">The Broker</a>
     <a href="#token-data">$SB Token</a>
+    <a class="mm-live" data-live-map href="https://live.shadowbroker.dev/" hidden>Live map ↗</a>
     <div class="mm-row">
       <a href="https://github.com/BigBodyCobain/Shadowbroker" target="_blank" rel="noopener">GitHub ↗</a>
       <a href="https://x.com/BigBodyCobain" target="_blank" rel="noopener">X ↗</a>

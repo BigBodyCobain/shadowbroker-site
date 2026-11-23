@@ -1,0 +1,39 @@
+{
+  "name": "shadowbroker-public",
+  "source": "https://github.com/BigBodyCobain/Shadowbroker/tree/main/openclaw-skills/shadowbroker-public",
+  "checks": [
+    "Shown byte for byte as published (line endings normalised to LF)",
+    "No invisible, zero-width or direction-changing characters",
+    "No hidden comments in the instructions"
+  ],
+  "files": [
+    {
+      "name": "SKILL.md",
+      "role": "instructions",
+      "bytes": 10822,
+      "lines": 204,
+      "sha256": "149da0c7f1efdaaba71647ccb45569bee017b3c894ca9a79e8cb596ce8392735"
+    },
+    {
+      "name": "sb_public.py",
+      "role": "code",
+      "bytes": 51904,
+      "lines": 1092,
+      "sha256": "44209cc88fc7a228e2866f0034366054744a213e920cbfc77ec08f696e80862d"
+    },
+    {
+      "name": "sb_camera.py",
+      "role": "code",
+      "bytes": 19378,
+      "lines": 446,
+      "sha256": "cc08ae5ec1a840288c14c7a696a42200de1393008d699e75334a1d36f2bf1c76"
+    },
+    {
+      "name": "skill.yaml",
+      "role": "manifest",
+      "bytes": 1499,
+      "lines": 42,
+      "sha256": "165e707e8decb349bd61ce18db62c0bf9883e9c7d76ca2f499826bd0997dd164"
+    }
+  ]
+}
