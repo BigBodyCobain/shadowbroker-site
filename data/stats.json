@@ -1,11 +1,11 @@
 {
-  "stars": 11579,
-  "forks": 1849,
+  "stars": 11623,
+  "forks": 1846,
   "license": "AGPL-3.0",
   "contributors": 34,
   "release": "v0.9.84",
   "mintAuthorityRevoked": true,
   "freezeAuthorityRevoked": true,
-  "supply": 999982571.176206,
-  "updated": "2026-11-16T02:55:48.309Z"
+  "supply": 999928118.023691,
+  "updated": "2026-11-23T15:13:28.623Z"
 }
